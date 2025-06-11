@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"gin-socmed/dto"
 	"gin-socmed/errorhandler"
 	"gin-socmed/helper"
@@ -44,10 +45,12 @@ func (h *postHandler) Create(c *gin.Context) {
 		// save to directory
 		dst := filepath.Join("public/picture", filepath.Base(newFileName))
 		c.SaveUploadedFile(post.Picture, dst)
+
+		post.Picture.Filename = fmt.Sprintf("%s/public/picture/%s", c.Request.Host, newFileName)
 	}
 
-	userID := 1
-	post.UserID = userID
+	userID, _ := c.Get("userID")
+	post.UserID = userID.(int)
 
 	if err := h.service.Create(&post); err != nil {
 		errorhandler.HandleError(c, err)

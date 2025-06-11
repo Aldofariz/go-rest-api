@@ -3,6 +3,7 @@ package service
 import (
 	"gin-socmed/dto"
 	"gin-socmed/entity"
+	"gin-socmed/errorhandler"
 	"gin-socmed/repository"
 )
 
@@ -29,6 +30,10 @@ func (s *postService) Create(req *dto.PostRequest) error {
 	if req.Picture != nil {
 		post.PictureUrl = &req.Picture.Filename
 	}
+
+	if err := s.repository.Create(&post); err != nil {
+		return &errorhandler.InternalServerError{Message: err.Error()}
+	}  
 
 	return nil
 }
