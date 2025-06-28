@@ -1,0 +1,105 @@
+basePath: /api
+definitions:
+  dto.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.LoginResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      token:
+        type: string
+    type: object
+  dto.Paginate:
+    properties:
+      page:
+        type: integer
+      per_page:
+        type: integer
+      total:
+        type: integer
+      total_page:
+        type: integer
+    type: object
+  dto.RegisterRequest:
+    properties:
+      email:
+        type: string
+      gender:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      password_confirm:
+        type: string
+    type: object
+  dto.ResponseParams:
+    properties:
+      data: {}
+      message:
+        type: string
+      paginate:
+        $ref: '#/definitions/dto.Paginate'
+      statusCode:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Ini adalah dokumentasi REST API untuk project Gin-Socmed
+  termsOfService: http://swagger.io/terms/
+  title: GIN-SOCMED API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Melakukan autentikasi pengguna
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.LoginResponse'
+      summary: Login user
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Melakukan registrasi pengguna
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseParams'
+      summary: Register user
+      tags:
+      - Auth
+swagger: "2.0"

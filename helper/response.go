@@ -16,10 +16,9 @@ type ResponseWithoutData struct {
 	Message string `json:"message"`
 }
 
-
-func Response (params dto.ResponseParams) any {
-	var response any 
-	var status string 
+func Response(params dto.ResponseParams) any {
+	var response any
+	var status string
 
 	if params.StatusCode >= 200 && params.StatusCode <= 299 {
 		status = "success"
@@ -28,17 +27,17 @@ func Response (params dto.ResponseParams) any {
 	}
 
 	if params.Data != nil {
-		response = &ResponseWithData {
-			Code: params.StatusCode,
-			Status: status,
-			Message: params.Message,
+		response = &ResponseWithData{
+			Code:     params.StatusCode,
+			Status:   status,
+			Message:  params.Message,
 			Paginate: params.Paginate,
-			Data: params.Data, 
+			Data:     params.Data,
 		}
 	} else {
-		response = &ResponseWithoutData {
-			Code: params.StatusCode,
-			Status: status,
+		response = &ResponseWithoutData{
+			Code:    params.StatusCode,
+			Status:  status,
 			Message: params.Message,
 		}
 	}

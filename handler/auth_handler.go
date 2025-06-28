@@ -20,6 +20,15 @@ func NewAuthHandler(s service.AuthService) *authHandler {
 	}
 }
 
+// Register godoc
+// @Summary Register user
+// @Description Melakukan registrasi pengguna
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param request body dto.RegisterRequest true "Request body"
+// @Success 200 {object} dto.ResponseParams
+// @Router /auth/register [post]
 func (h *authHandler) Register(c *gin.Context) {
 	var register dto.RegisterRequest
 
@@ -41,6 +50,15 @@ func (h *authHandler) Register(c *gin.Context) {
 	c.JSON(http.StatusCreated, res)
 }
 
+// Login godoc
+// @Summary Login user
+// @Description Melakukan autentikasi pengguna
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param request body dto.LoginRequest true "Request body"
+// @Success 200 {object} dto.LoginResponse
+// @Router /auth/login [post]
 func (h *authHandler) Login(c *gin.Context) {
 	var login dto.LoginRequest
 
